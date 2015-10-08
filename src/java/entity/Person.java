@@ -19,7 +19,7 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Person extends InfoEntitys implements Serializable
 {
-    private Integer id;
+//    private Integer id;
     private String firstName;
     private String lastName;
     
