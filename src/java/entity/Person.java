@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -23,9 +24,10 @@ public class Person extends InfoEntitys implements Serializable
     private String firstName;
     private String lastName;
     
-    @ManyToMany(cascade={CascadeType.ALL})
+    @ManyToMany(cascade={CascadeType.PERSIST})
     private List<Hobby> hobbys = new ArrayList();
 
+    
     public Person()
     {
         super();

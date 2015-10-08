@@ -6,8 +6,12 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -23,7 +27,7 @@ public class Company extends InfoEntitys implements Serializable
     private int cvr;
     private int numEmployees;
     private double marketValue;
-
+    
     public Company()
     {
         super();
@@ -90,5 +94,3 @@ public class Company extends InfoEntitys implements Serializable
     }
 
 }
-
-

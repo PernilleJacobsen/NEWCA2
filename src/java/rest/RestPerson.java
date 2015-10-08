@@ -101,7 +101,6 @@ public class RestPerson
         {
             throw new PersonNotFoundException("There is no person with the requested id");
         }
-
     }
 
     @POST
@@ -111,7 +110,7 @@ public class RestPerson
     {
         try
         {
-        
+
             Person p = gson.fromJson(person, Person.class);
             Facade.createPerson(p);
             return gson.toJson(p);
@@ -121,6 +120,65 @@ public class RestPerson
             e.printStackTrace();
             throw new PersonNotCreatedException("It was impossible to create the person");
         }
+    }
+
+    @GET
+    @Path("complete")
+    @Produces("application/json")
+    public String getAllPersons()
+    {
+        List<Person> personList = Facade.getAllPerson();
+        JsonArray ja = new JsonArray();
+        for (Person p : personList)
+        {
+            JsonObject jo = createJsonObjectfromPerson(p);
+            ja.add(jo);
+        }
+        String s = gson.toJson(ja);
+        return s;
+    }
+
+    public JsonObject createJsonObjectfromPerson(Person p)
+    {
+        JsonObject jo = new JsonObject();
+        jo.addProperty("id", p.getId());
+        jo.addProperty("firstname", p.getFirstName());
+        jo.addProperty("lastname", p.getLastName());
+        jo.addProperty("email", p.getEmail());
+
+        if (p.getAddress() != null)
+        {
+            JsonObject address = new JsonObject();
+            address.addProperty("id", p.getAddress().getId());
+            address.addProperty("street", p.getAddress().getStreet());
+            address.addProperty("additionalinfo", p.getAddress().getAdditionalInfo());
+
+            JsonObject city = new JsonObject();
+            city.addProperty("zipcode", p.getAddress().getCityInfo().getZip());
+            city.addProperty("city", p.getAddress().getCityInfo().getCity());
+            address.add("cityinfo", city);
+            jo.add("address", address);
+        }
+        JsonArray phones = new JsonArray();
+        for (Phone ph : p.getPhoneList())
+        {
+            JsonObject phone = new JsonObject();
+            phone.addProperty("number", ph.getPhoneNumber());
+            phone.addProperty("description", ph.getDescription());
+            phones.add(phone);
+        }
+        jo.add("phones", phones);
+
+        JsonArray hobbies = new JsonArray();
+        for (Hobby h : p.getHobbys())
+        {
+            JsonObject hobby = new JsonObject();
+            hobby.addProperty("name", h.getHobbyName());
+            hobby.addProperty("description", h.getDescription());
+            hobbies.add(hobby);
+        }
+        jo.add("hobbies", hobbies);
+        return jo;
     }
 
 }

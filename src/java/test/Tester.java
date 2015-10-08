@@ -8,6 +8,7 @@ import entity.Hobby;
 import entity.Person;
 import entity.Phone;
 import facade.Facade;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -24,14 +25,7 @@ public class Tester
     {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA_2PU");
         EntityManager em = emf.createEntityManager();
-//        PersistData.testData(em);
-        
-        Person p = new Person();
-    
-        p.setFirstName("Marta");
-        p.setLastName("Miszczyk");
-        
-        
-//        System.out.println(Facade.createPerson(p));
+        PersistData.testData(em);
+
     }
 }

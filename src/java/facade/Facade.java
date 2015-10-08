@@ -7,6 +7,7 @@ package facade;
 import entity.Company;
 import entity.Hobby;
 import entity.Person;
+import entity.Phone;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -108,6 +109,21 @@ public class Facade
             em.getTransaction().commit();
             Person pR = em.find(Person.class, p.getId());
             return pR;
+        } finally
+        {
+            em.close();
+        } 
+    }
+    
+    public static List<Person> getAllPerson()
+    {
+                EntityManager em = emf.createEntityManager();
+        try
+        {
+            em.getTransaction().begin();
+            List<Person> persons = em.createQuery("Select p from Person p").getResultList();
+            em.getTransaction().commit();
+            return persons;
         } finally
         {
             em.close();
