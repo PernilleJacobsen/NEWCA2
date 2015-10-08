@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package test;
+import entity.Hobby;
+import entity.Person;
+import entity.Phone;
 import facade.Facade;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,8 +24,12 @@ public class Tester
     {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA_2PU");
         EntityManager em = emf.createEntityManager();
-        PersistData.testData(em);
+//        PersistData.testData(em);
         
-        System.out.println(""+ Facade.countPeopleWithHobby("Programmering"));
+        Person p = new Person();
+        p.setFirstName("Jeanette");
+        p.setLastName("Borring-møller");
+        
+        System.out.println(Facade.createPerson(p));
     }
 }

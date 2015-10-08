@@ -47,7 +47,8 @@ public class RestPerson
     public RestPerson()
     {
         gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).create();
-    } 
+    }
+
     @GET
     @Path("complete/{id}")
     @Produces("application/json")
@@ -55,53 +56,53 @@ public class RestPerson
     {
         try
         {
-        JsonObject phoneNr = new JsonObject();
-        JsonObject person = new JsonObject();
-        JsonObject hobby = new JsonObject();
-        JsonArray hobbies = new JsonArray();
-        JsonArray phones = new JsonArray();
+//            JsonObject phoneNr = new JsonObject();
+            JsonObject person = new JsonObject();
+//            JsonObject hobby = new JsonObject();
+//            JsonArray hobbies = new JsonArray();
+//            JsonArray phones = new JsonArray();
 
-        Person persons = Facade.getPersonByID(id);
-        List<Hobby> hobbiess;
-        List<Phone> phoneNumbers;
-
-        person.addProperty("Id", persons.getId());
-        person.addProperty("firstName", persons.getFirstName());
-        person.addProperty("lastName", persons.getLastName());
-        person.addProperty("email", persons.getEmail());
-        person.addProperty("street", persons.getAddress().getStreet());
-        person.addProperty("city", persons.getAddress().getCityInfo().getCity());
-        person.addProperty("zipCode", persons.getAddress().getCityInfo().getZip());
-        person.addProperty("additionalInfo", persons.getAddress().getAdditionalInfo());
-      
-        hobbiess = persons.getHobbys();
-            while (!hobbiess.isEmpty())
-            {
-                Hobby h = hobbiess.get(0);
-                hobby.addProperty("hobbyName", h.getHobbyName());
-                hobby.addProperty("description", h.getDescription());
-                
-                hobbiess.remove(h);
-                hobbies.add(hobby);
-            }
-            person.add("hobbies", hobbies);
-        
-        phoneNumbers = persons.getPhoneList();
-        while(!phoneNumbers.isEmpty())
+            Person persons = Facade.getPersonByID(id);
+//            List<Hobby> hobbiess;
+//            List<Phone> phoneNumbers;
+//
+//            person.addProperty("Id", persons.getId());
+//            person.addProperty("firstName", persons.getFirstName());
+//            person.addProperty("lastName", persons.getLastName());
+//            person.addProperty("email", persons.getEmail());
+//        person.addProperty("street", persons.getAddress().getStreet());
+//        person.addProperty("city", persons.getAddress().getCityInfo().getCity());
+//        person.addProperty("zipCode", persons.getAddress().getCityInfo().getZip());
+//        person.addProperty("additionalInfo", persons.getAddress().getAdditionalInfo());
+//      
+//        hobbiess = persons.getHobbys();
+//            while (!hobbiess.isEmpty())
+//            {
+//                Hobby h = hobbiess.get(0);
+//                hobby.addProperty("hobbyName", h.getHobbyName());
+//                hobby.addProperty("description", h.getDescription());
+//                
+//                hobbiess.remove(h);
+//                hobbies.add(hobby);
+//            }
+//            person.add("hobbies", hobbies);
+//        
+//        phoneNumbers = persons.getPhoneList();
+//        while(!phoneNumbers.isEmpty())
+//        {
+//            Phone p = phoneNumbers.get(0);
+//            phoneNr.addProperty("phoneNumber", p.getPhoneNumber());
+//            
+//            phoneNumbers.remove(p);
+//            phones.add(phoneNr);
+//        }
+//        person.add("phone", phones);
+            String s = gson.toJson(person);
+            return s;
+        } catch (NullPointerException e)
         {
-            Phone p = phoneNumbers.get(0);
-            phoneNr.addProperty("phoneNumber", p.getPhoneNumber());
-            
-            phoneNumbers.remove(p);
-            phones.add(phoneNr);
+            throw new PersonNotFoundException("Person with the requestet id not found");
         }
-        person.add("phone", phones);
-        String s = gson.toJson(person);
-        return s;
-        }catch (NullPointerException e)
-                {
-                    throw new PersonNotFoundException("Person with the requestet id not found");
-                }
 
     }
 
@@ -110,16 +111,15 @@ public class RestPerson
     @Consumes("application/json")
     public String createAPerson(String person) throws PersonNotCreatedException
     {
-        try{
-        Person p = gson.fromJson(person, Person.class);
-        Facade.createPerson(p);
-        return gson.toJson(p);
-        }catch (Exception e)
+        try
+        {
+            Person p = gson.fromJson(person, Person.class);
+            Facade.createPerson(p);
+            return gson.toJson(p);
+        } catch (Exception e)
         {
             throw new PersonNotCreatedException("Sorry you did not succed in persisting your person");
         }
     }
-
-
 
 }
