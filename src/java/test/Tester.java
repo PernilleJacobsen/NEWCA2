@@ -32,6 +32,6 @@ public class Tester
         p.setLastName("Miszczyk");
         
         
-        System.out.println(Facade.createPerson(p));
+//        System.out.println(Facade.createPerson(p));
     }
 }

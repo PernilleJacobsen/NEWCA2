@@ -104,9 +104,9 @@ public class RestPerson
             person.add("phone", phones);
             String s = gson.toJson(person);
             return s;
-        } catch (NullPointerException e)
+        } catch (Exception e)
         {
-            throw new PersonNotFoundException("Person with the requestet id not found");
+            throw new PersonNotFoundException("yyy");
         }
 
     }
@@ -118,12 +118,15 @@ public class RestPerson
     {
         try
         {
+            System.out.println("xxx "+person);
             Person p = gson.fromJson(person, Person.class);
             Facade.createPerson(p);
             return gson.toJson(p);
+           
         } catch (Exception e)
         {
-            throw new PersonNotCreatedException("Sorry you did not succed in persisting your person");
+            e.printStackTrace();
+            throw new PersonNotCreatedException("xxx");
         }
     }
 
