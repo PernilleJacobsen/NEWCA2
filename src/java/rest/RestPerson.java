@@ -99,7 +99,7 @@ public class RestPerson
             return s;
         } catch (Exception e)
         {
-            throw new PersonNotFoundException("yyy");
+            throw new PersonNotFoundException("There is no person with the requested id");
         }
 
     }
@@ -111,7 +111,7 @@ public class RestPerson
     {
         try
         {
-            System.out.println("xxx " + person);
+        
             Person p = gson.fromJson(person, Person.class);
             Facade.createPerson(p);
             return gson.toJson(p);
@@ -119,7 +119,7 @@ public class RestPerson
         } catch (Exception e)
         {
             e.printStackTrace();
-            throw new PersonNotCreatedException("xxx");
+            throw new PersonNotCreatedException("It was impossible to create the person");
         }
     }
 
