@@ -56,53 +56,46 @@ public class RestPerson
     {
         try
         {
-            JsonObject phoneNr = new JsonObject();
-            JsonObject person = new JsonObject();
-            JsonObject hobby = new JsonObject();
-            JsonArray hobbies = new JsonArray();
-            JsonArray phones = new JsonArray();
+            JsonObject jo = new JsonObject();
+            Person p = Facade.getPersonByID(id);
+            jo.addProperty("id", p.getId());
+            jo.addProperty("firstname", p.getFirstName());
+            jo.addProperty("lastname", p.getLastName());
+            jo.addProperty("email", p.getEmail());
 
-            Person persons = Facade.getPersonByID(id);
-            List<Hobby> hobbiess;
-            List<Phone> phoneNumbers;
-
-            person.addProperty("Id", persons.getId());
-            person.addProperty("firstName", persons.getFirstName());
-            person.addProperty("lastName", persons.getLastName());
-            person.addProperty("email", persons.getEmail());
-
-            if (persons.getAddress() != null)
+            if (p.getAddress() != null)
             {
-                person.addProperty("street", persons.getAddress().getStreet());
-                person.addProperty("city", persons.getAddress().getCityInfo().getCity());
-                person.addProperty("zipCode", persons.getAddress().getCityInfo().getZip());
-                person.addProperty("additionalInfo", persons.getAddress().getAdditionalInfo());
+                JsonObject address = new JsonObject();
+                address.addProperty("id", p.getAddress().getId());
+                address.addProperty("street", p.getAddress().getStreet());
+                address.addProperty("additionalinfo", p.getAddress().getAdditionalInfo());
+
+                JsonObject city = new JsonObject();
+                city.addProperty("zipcode", p.getAddress().getCityInfo().getZip());
+                city.addProperty("city", p.getAddress().getCityInfo().getCity());
+                address.add("cityinfo", city);
+                jo.add("address", address);
             }
-
-     
-        hobbiess = persons.getHobbys();
-            while (!hobbiess.isEmpty())
+            JsonArray phones = new JsonArray();
+            for (Phone ph : p.getPhoneList())
             {
-                Hobby h = hobbiess.get(0);
-                hobby.addProperty("hobbyName", h.getHobbyName());
+                JsonObject phone = new JsonObject();
+                phone.addProperty("number", ph.getPhoneNumber());
+                phone.addProperty("description", ph.getDescription());
+                phones.add(phone);
+            }
+            jo.add("phones", phones);
+
+            JsonArray hobbies = new JsonArray();
+            for (Hobby h : p.getHobbys())
+            {
+                JsonObject hobby = new JsonObject();
+                hobby.addProperty("name", h.getHobbyName());
                 hobby.addProperty("description", h.getDescription());
-                
-                hobbiess.remove(h);
                 hobbies.add(hobby);
             }
-            person.add("hobbies", hobbies);
-        
-            phoneNumbers = persons.getPhoneList();
-            while (!phoneNumbers.isEmpty())
-            {
-                Phone p = phoneNumbers.get(0);
-                phoneNr.addProperty("phoneNumber", p.getPhoneNumber());
-
-                phoneNumbers.remove(p);
-                phones.add(phoneNr);
-            }
-            person.add("phone", phones);
-            String s = gson.toJson(person);
+            jo.add("hobbies", hobbies);
+            String s = gson.toJson(jo);
             return s;
         } catch (Exception e)
         {
@@ -118,11 +111,11 @@ public class RestPerson
     {
         try
         {
-            System.out.println("xxx "+person);
+            System.out.println("xxx " + person);
             Person p = gson.fromJson(person, Person.class);
             Facade.createPerson(p);
             return gson.toJson(p);
-           
+
         } catch (Exception e)
         {
             e.printStackTrace();
