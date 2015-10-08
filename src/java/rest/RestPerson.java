@@ -13,6 +13,8 @@ import com.google.gson.JsonObject;
 import entity.Hobby;
 import entity.Person;
 import entity.Phone;
+import exception.PersonNotCreatedException;
+import exception.PersonNotFoundException;
 import facade.Facade;
 import java.util.List;
 import javax.ws.rs.core.Context;
@@ -49,8 +51,10 @@ public class RestPerson
     @GET
     @Path("complete/{id}")
     @Produces("application/json")
-    public String getPersonById(@PathParam("id") int id)
+    public String getPersonById(@PathParam("id") int id) throws PersonNotFoundException
     {
+        try
+        {
         JsonObject phoneNr = new JsonObject();
         JsonObject person = new JsonObject();
         JsonObject hobby = new JsonObject();
@@ -94,17 +98,26 @@ public class RestPerson
         person.add("phone", phones);
         String s = gson.toJson(person);
         return s;
+        }catch (NullPointerException e)
+                {
+                    throw new PersonNotFoundException("Person with the requestet id not found");
+                }
 
     }
 
     @POST
     @Produces("application/json")
     @Consumes("application/json")
-    public String createAPerson(String person)
+    public String createAPerson(String person) throws PersonNotCreatedException
     {
+        try{
         Person p = gson.fromJson(person, Person.class);
         Facade.createPerson(p);
         return gson.toJson(p);
+        }catch (Exception e)
+        {
+            throw new PersonNotCreatedException("Sorry you did not succed in persisting your person");
+        }
     }
 
 
