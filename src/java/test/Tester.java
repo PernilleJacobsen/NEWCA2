@@ -27,8 +27,10 @@ public class Tester
 //        PersistData.testData(em);
         
         Person p = new Person();
-        p.setFirstName("Jeanette");
-        p.setLastName("Borring-møller");
+    
+        p.setFirstName("Marta");
+        p.setLastName("Miszczyk");
+        
         
         System.out.println(Facade.createPerson(p));
     }

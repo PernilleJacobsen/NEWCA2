@@ -56,47 +56,52 @@ public class RestPerson
     {
         try
         {
-//            JsonObject phoneNr = new JsonObject();
+            JsonObject phoneNr = new JsonObject();
             JsonObject person = new JsonObject();
-//            JsonObject hobby = new JsonObject();
-//            JsonArray hobbies = new JsonArray();
-//            JsonArray phones = new JsonArray();
+            JsonObject hobby = new JsonObject();
+            JsonArray hobbies = new JsonArray();
+            JsonArray phones = new JsonArray();
 
             Person persons = Facade.getPersonByID(id);
-//            List<Hobby> hobbiess;
-//            List<Phone> phoneNumbers;
-//
-//            person.addProperty("Id", persons.getId());
-//            person.addProperty("firstName", persons.getFirstName());
-//            person.addProperty("lastName", persons.getLastName());
-//            person.addProperty("email", persons.getEmail());
-//        person.addProperty("street", persons.getAddress().getStreet());
-//        person.addProperty("city", persons.getAddress().getCityInfo().getCity());
-//        person.addProperty("zipCode", persons.getAddress().getCityInfo().getZip());
-//        person.addProperty("additionalInfo", persons.getAddress().getAdditionalInfo());
-//      
-//        hobbiess = persons.getHobbys();
-//            while (!hobbiess.isEmpty())
-//            {
-//                Hobby h = hobbiess.get(0);
-//                hobby.addProperty("hobbyName", h.getHobbyName());
-//                hobby.addProperty("description", h.getDescription());
-//                
-//                hobbiess.remove(h);
-//                hobbies.add(hobby);
-//            }
-//            person.add("hobbies", hobbies);
-//        
-//        phoneNumbers = persons.getPhoneList();
-//        while(!phoneNumbers.isEmpty())
-//        {
-//            Phone p = phoneNumbers.get(0);
-//            phoneNr.addProperty("phoneNumber", p.getPhoneNumber());
-//            
-//            phoneNumbers.remove(p);
-//            phones.add(phoneNr);
-//        }
-//        person.add("phone", phones);
+            List<Hobby> hobbiess;
+            List<Phone> phoneNumbers;
+
+            person.addProperty("Id", persons.getId());
+            person.addProperty("firstName", persons.getFirstName());
+            person.addProperty("lastName", persons.getLastName());
+            person.addProperty("email", persons.getEmail());
+
+            if (persons.getAddress() != null)
+            {
+                person.addProperty("street", persons.getAddress().getStreet());
+                person.addProperty("city", persons.getAddress().getCityInfo().getCity());
+                person.addProperty("zipCode", persons.getAddress().getCityInfo().getZip());
+                person.addProperty("additionalInfo", persons.getAddress().getAdditionalInfo());
+            }
+
+     
+        hobbiess = persons.getHobbys();
+            while (!hobbiess.isEmpty())
+            {
+                Hobby h = hobbiess.get(0);
+                hobby.addProperty("hobbyName", h.getHobbyName());
+                hobby.addProperty("description", h.getDescription());
+                
+                hobbiess.remove(h);
+                hobbies.add(hobby);
+            }
+            person.add("hobbies", hobbies);
+        
+            phoneNumbers = persons.getPhoneList();
+            while (!phoneNumbers.isEmpty())
+            {
+                Phone p = phoneNumbers.get(0);
+                phoneNr.addProperty("phoneNumber", p.getPhoneNumber());
+
+                phoneNumbers.remove(p);
+                phones.add(phoneNr);
+            }
+            person.add("phone", phones);
             String s = gson.toJson(person);
             return s;
         } catch (NullPointerException e)
