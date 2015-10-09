@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package facade;
+import deploy.DeploymentConfiguration;
 import entity.Company;
 import entity.Hobby;
 import entity.Person;
@@ -20,7 +21,7 @@ import javax.persistence.Persistence;
 public class Facade
 {
 
-    static EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA_2PU");
+    static EntityManagerFactory emf = Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME);
     
     public static Person getPersonByID(int id)
     {

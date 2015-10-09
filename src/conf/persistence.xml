@@ -17,4 +17,21 @@
       <property name="javax.persistence.jdbc.password" value="ca2"/>
     </properties>
   </persistence-unit>
+  
+  <persistence-unit name="pu_OPENSHIFT" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <non-jta-data-source>java:/comp/env/jdbc/MySQLDS</non-jta-data-source>
+    <class>entity.Address</class>
+    <class>entity.CityInfo</class>
+    <class>entity.Company</class>
+    <class>entity.Hobby</class>
+    <class>entity.InfoEntitys</class>
+    <class>entity.Person</class>
+    <class>entity.Phone</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="eclipselink.canonicalmodel.subpackage" value="deploy"/>
+    </properties>
+  </persistence-unit>
 </persistence>

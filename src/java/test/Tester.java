@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package test;
+import deploy.DeploymentConfiguration;
 import entity.Hobby;
 import entity.Person;
 import entity.Phone;
@@ -23,7 +24,7 @@ public class Tester
 
     public static void main(String[] args)
     {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA_2PU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME);
         EntityManager em = emf.createEntityManager();
         PersistData.testData(em);
 
