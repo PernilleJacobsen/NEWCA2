@@ -35,17 +35,17 @@ public class RestAssured
     {
         baseURI = "http://localhost:8080";
         defaultParser = Parser.JSON;
-        basePath = "/NYCA2/api/person/complete";
+        basePath = "/NYCA2/api/person/";
     }
     
     @Test
     public void testGetPersonByID()
     { 
         when()
-            .get("/1")
+            .get("complete/1")
         .then().
             statusCode(200).
-            body("firstName", equalTo("Korben"));
+            body("firstname", equalTo("Korben"));
  
     }
     
