@@ -125,8 +125,10 @@ public class RestPerson
     @GET
     @Path("complete")
     @Produces("application/json")
-    public String getAllPersons()
+    public String getAllPersons() throws PersonNotFoundException
     {
+        try
+        {
         List<Person> personList = Facade.getAllPerson();
         JsonArray ja = new JsonArray();
         for (Person p : personList)
@@ -136,6 +138,10 @@ public class RestPerson
         }
         String s = gson.toJson(ja);
         return s;
+        }catch (Exception e)
+                {
+                    throw new PersonNotFoundException("Sorry - you failed to get persons");
+                }
     }
 
     public JsonObject createJsonObjectfromPerson(Person p)
