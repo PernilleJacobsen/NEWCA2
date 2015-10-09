@@ -11,7 +11,10 @@ import static com.jayway.restassured.RestAssured.baseURI;
 import static com.jayway.restassured.RestAssured.defaultParser;
 import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.RestAssured.when;
+import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.parsing.Parser;
+import static com.jayway.restassured.parsing.Parser.JSON;
+import entity.Person;
 import static org.hamcrest.Matchers.equalTo;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -52,15 +55,19 @@ public class RestAssured
     @Test
     public void testCreatePerson()
     {
+        Person p= new Person("Jan", "Hansen");
+//        p.setFirstName("Jan");
+//        p.setLastName("Hansen");
         given()
-                .parameters("firstname", "Jan", "lastname", "Hansen", "email", "jan@hotmail.com")
+                .contentType(ContentType.JSON)
+                .body(p)
         .when()
                 .post("person")
         .then()
-                .statusCode(200);
+//                .statusCode(200)
+                .body("Jan", equalTo(p.getFirstName()));
                 
-        
-                
+             
     }
    
     
