@@ -13,49 +13,20 @@
         <title>JSP Page</title>
     </head>
 
-    <script>
-        $(document).ready(function () {
-            $.ajax({
-                url: "api/person/complete",
-                dataType: "json"
-            }).done(function (persons) {
-                $("#table").text("");
-                for (var i = 0; i < persons.length; i++) {
-                    $("#table").append("<tr>");
-                    $("#table").append("<td>" + persons[i].firstname + " " + persons[i].lastname + "</td>");
-                    $("#table").append("<td>" + persons[i].email + "</td>");
-                    $("#table").append("<td>" + persons[i].address.street + " " + persons[i].address.additionalinfo + " " + persons[i].address.cityinfo.city + " " + persons[i].address.cityinfo.zipcode + "</td>");
-                    var text = "<td> ";
-                    for (var x = 0; x < persons[i].phones.length; x++) {
-                        text += persons[i].phones[x].number + " " + persons[i].phones[x].description + " ";
-                    }
-                    text += " </td>";
-                    $("#table").append(text);
-                    var text2 = "<td>";
-                    for (var j = 0; j < persons[i].hobbies.length; j++) {
-                        text2 += persons[i].hobbies[j].name + " " + persons[i].hobbies[j].description + " ";
-                    }
-                    text2 += " </td>";
-                    $("#table").append(text2);
-                    $("#table").append("</tr>");
-                }
-            }).fail(function (jqXHR, textStatus) {
-                jsonValue = jQuery.parseJSON(jqXHR.responseText);
-                alert("Request failed: " + jsonValue.message);
-            });
-        });
-    </script>
 
     <body>
+        <script src ="main.js">
+        </script>
         <div id="authors"> Marta Miszczyk, Jeanette Boring-Møller, Pernille Jacobsen </div>
 
-<div id="class">A</div>
+        <div id="class">A</div>
 
-<div id= "group"> Group number </div>
+        <div id= "group"> Group number </div>
 
 
         <table style="width:100%" border="1" >
             <thead>
+            <th>Id</th>
             <th>Name</th>
             <th>Email</th>
             <th>Address</th>
@@ -66,6 +37,24 @@
 
         </tbody>
     </table>
-</body>
+   
+<input id="input" type="text" name="PersonId" value="" size="5" />
+
+<input type="button" id="pid" value="GetPerson" name="GetPerson" />
+
+    <table style="width:100%" border="1" >
+        <thead>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Hobby</th>
+    </thead>
+    <tbody id="table2">
+
+    </tbody>
+</table>
+    </body>
 
 </html>

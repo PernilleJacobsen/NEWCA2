@@ -39,14 +39,14 @@ public class RestAssured
     {
         baseURI = "http://localhost:8080";
         defaultParser = Parser.JSON;
-        basePath = "/NYCA2/api/person/";
+        basePath = "/NYCA2/api/";
     }
     
     @Test
     public void testGetPersonByID()
     { 
         when()
-            .get("complete/1")
+            .get("person/complete/1")
         .then().
             statusCode(200).
             body("firstname", equalTo("Korben"));
@@ -64,8 +64,8 @@ public class RestAssured
         .when()
                 .post("person")
         .then()
-//                .statusCode(200)
-                .body("Jan", equalTo(p.getFirstName()));
+                .statusCode(200)
+                .body("firstName", equalTo(p.getFirstName()));
                 
              
     }
