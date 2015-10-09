@@ -9,6 +9,7 @@ package restAssured;
 import static com.jayway.restassured.RestAssured.basePath;
 import static com.jayway.restassured.RestAssured.baseURI;
 import static com.jayway.restassured.RestAssured.defaultParser;
+import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.RestAssured.when;
 import com.jayway.restassured.parsing.Parser;
 import static org.hamcrest.Matchers.equalTo;
@@ -46,9 +47,21 @@ public class RestAssured
         .then().
             statusCode(200).
             body("firstname", equalTo("Korben"));
- 
     }
     
+    @Test
+    public void testCreatePerson()
+    {
+        given()
+                .parameters("firstname", "Jan", "lastname", "Hansen", "email", "jan@hotmail.com")
+        .when()
+                .post("person")
+        .then()
+                .statusCode(200);
+                
+        
+                
+    }
    
     
 }
