@@ -24,12 +24,19 @@
                     $("#table").append("<tr>");
                     $("#table").append("<td>" + persons[i].firstname + " " + persons[i].lastname + "</td>");
                     $("#table").append("<td>" + persons[i].email + "</td>");
-                        var text2 = "<td>";
-                        for (var j = 0; j < persons[i].hobbys.length; j++) {
-                            text2 += persons[i].hobbys[j].hobbyName + " " + persons[i].hobbys[j].description + " ";
-                        }
-                        text2 += " </td>";
-                        $("#table").append(text2);
+                    $("#table").append("<td>" + persons[i].address.street + " " + persons[i].address.additionalinfo + " " + persons[i].address.cityinfo.city + " " + persons[i].address.cityinfo.zipcode + "</td>");
+                    var text = "<td> ";
+                    for (var x = 0; x < persons[i].phones.length; x++) {
+                        text += persons[i].phones[x].number + " " + persons[i].phones[x].description + " ";
+                    }
+                    text += " </td>";
+                    $("#table").append(text);
+                    var text2 = "<td>";
+                    for (var j = 0; j < persons[i].hobbies.length; j++) {
+                        text2 += persons[i].hobbies[j].name + " " + persons[i].hobbies[j].description + " ";
+                    }
+                    text2 += " </td>";
+                    $("#table").append(text2);
                     $("#table").append("</tr>");
                 }
             }).fail(function (jqXHR, textStatus) {
@@ -46,6 +53,7 @@
             <thead>
             <th>Name</th>
             <th>Email</th>
+            <th>Address</th>
             <th>Phone</th>
             <th>Hobby</th>
         </thead>

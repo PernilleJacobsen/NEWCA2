@@ -46,7 +46,6 @@ public class RestAssured
         .then().
             statusCode(200).
             body("firstname", equalTo("Korben"));
- 
     }
     
    
