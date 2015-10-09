@@ -7,7 +7,7 @@ $(document).ready(function () {
         $("#table").text("");
         for (var i = 0; i < persons.length; i++) {
             $("#table").append("<tr>");
-            $("#table").append("<td>" + persons[i].id +"</td>");
+            $("#table").append("<td>" + persons[i].id + "</td>");
             $("#table").append("<td>" + persons[i].firstname + " " + persons[i].lastname + "</td>");
             $("#table").append("<td>" + persons[i].email + "</td>");
             $("#table").append("<td>" + persons[i].address.street + " " + persons[i].address.additionalinfo + " " + persons[i].address.cityinfo.city + " " + persons[i].address.cityinfo.zipcode + "</td>");
@@ -43,10 +43,13 @@ $(document).ready(function () {
             $("#table2").text("");
 
             $("#table2").append("<tr>");
-            $("#table2").append("<td>" + person.id +"</td>");
+            $("#table2").append("<td>" + person.id + "</td>");
             $("#table2").append("<td>" + person.firstname + " " + person.lastname + "</td>");
             $("#table2").append("<td>" + person.email + "</td>");
-            $("#table2").append("<td>" + person.address.street + " " + person.address.additionalinfo + " " + person.address.cityinfo.city + " " + person.address.cityinfo.zipcode + "</td>");
+            if (person.address !== null)
+            {
+                $("#table2").append("<td>" + person.address.street + " " + person.address.additionalinfo + " " + person.address.cityinfo.city + " " + person.address.cityinfo.zipcode + "</td>");
+            }
             var text = "<td> ";
             for (var x = 0; x < person.phones.length; x++) {
                 text += person.phones[x].number + " " + person.phones[x].description + " ";
@@ -67,10 +70,38 @@ $(document).ready(function () {
     });
 });
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+function makeRow(person) {
+    var row = "<tr><td>" + person.id + "</td><td>" + person.firstname + " " + person.lastname + "</td><td>" + person.email + "</td></tr>";
+    return row;
+}
+
+$(document).ready(function () {
+    $("#create").click(function ()
+    {
+        var persons = {firstname: $("#firstname").val(), lastname: $("#lastname").val(), email: $("#email").val()}
+
+        $.ajax({
+            url: "api/person/",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(persons)
+        }).done(function (person) {
+            initAddEditField("", "", "", "");
+            if (isAdding())
+            {
+                $("#table").append(person);
+            }
+            else {
+                $("#" + data.id).replaceWith(makeRow(person));
+            }
+            setUpHandler();
+            setIsAdding(true);
+        }).fail(function (jqXHR, textStatus) {
+            jsonValue = jQuery.parseJSON(jqXHR.responseText);
+            alert("Request failed: " + jsonValue.message);
+        });
+
+    });
+});
 
 

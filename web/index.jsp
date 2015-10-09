@@ -37,10 +37,10 @@
 
         </tbody>
     </table>
-   
-<input id="input" type="text" name="PersonId" value="" size="5" />
 
-<input type="button" id="pid" value="GetPerson" name="GetPerson" />
+    <input id="input" type="text" name="PersonId" value="" size="5" />
+
+    <input type="button" id="pid" value="GetPerson" name="GetPerson" />
 
     <table style="width:100%" border="1" >
         <thead>
@@ -52,9 +52,12 @@
         <th>Hobby</th>
     </thead>
     <tbody id="table2">
-
     </tbody>
 </table>
-    </body>
+    <input id="firstname" type="text" name="Firstname" value="" size="20" />
+    <input id="lastname" type="text" name="Lastname" value="" size="20" />
+    <input id="email" type="text" name="Email" value="" size="20" />
+    <input id="create" type="button" value="Create" name="create" />
+</body>
 
 </html>
