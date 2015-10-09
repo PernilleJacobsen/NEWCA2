@@ -40,7 +40,12 @@
     </script>
 
     <body>
-        <h1>Hello World!</h1>
+        <div id="authors"> Marta Miszczyk, Jeanette Boring-Møller, Pernille Jacobsen </div>
+
+<div id="class">A</div>
+
+<div id= "group"> Group number </div>
+
 
         <table style="width:100%" border="1" >
             <thead>
