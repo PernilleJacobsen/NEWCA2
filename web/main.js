@@ -10,7 +10,10 @@ $(document).ready(function () {
             $("#table").append("<td>" + persons[i].id + "</td>");
             $("#table").append("<td>" + persons[i].firstname + " " + persons[i].lastname + "</td>");
             $("#table").append("<td>" + persons[i].email + "</td>");
-            $("#table").append("<td>" + persons[i].address.street + " " + persons[i].address.additionalinfo + " " + persons[i].address.cityinfo.city + " " + persons[i].address.cityinfo.zipcode + "</td>");
+            if (persons[i].address !== null)
+            {
+                $("#table").append("<td>" + persons[i].address.street + " " + persons[i].address.additionalinfo + " " + persons[i].address.cityinfo.city + " " + persons[i].address.cityinfo.zipcode + "</td>");
+            }
             var text = "<td> ";
             for (var x = 0; x < persons[i].phones.length; x++) {
                 text += persons[i].phones[x].number + " " + persons[i].phones[x].description + " ";
@@ -46,10 +49,8 @@ $(document).ready(function () {
             $("#table2").append("<td>" + person.id + "</td>");
             $("#table2").append("<td>" + person.firstname + " " + person.lastname + "</td>");
             $("#table2").append("<td>" + person.email + "</td>");
-            if (person.address !== null)
-            {
-                $("#table2").append("<td>" + person.address.street + " " + person.address.additionalinfo + " " + person.address.cityinfo.city + " " + person.address.cityinfo.zipcode + "</td>");
-            }
+            $("#table2").append("<td>" + person.address.street + " " + person.address.additionalinfo + " " + person.address.cityinfo.city + " " + person.address.cityinfo.zipcode + "</td>");
+
             var text = "<td> ";
             for (var x = 0; x < person.phones.length; x++) {
                 text += person.phones[x].number + " " + person.phones[x].description + " ";
@@ -75,33 +76,33 @@ function makeRow(person) {
     return row;
 }
 
-$(document).ready(function () {
-    $("#create").click(function ()
-    {
-        var persons = {firstname: $("#firstname").val(), lastname: $("#lastname").val(), email: $("#email").val()}
-
-        $.ajax({
-            url: "api/person/",
-            type: "POST",
-            dataType: "json",
-            data: JSON.stringify(persons)
-        }).done(function (person) {
-            initAddEditField("", "", "", "");
-            if (isAdding())
-            {
-                $("#table").append(person);
-            }
-            else {
-                $("#" + data.id).replaceWith(makeRow(person));
-            }
-            setUpHandler();
-            setIsAdding(true);
-        }).fail(function (jqXHR, textStatus) {
-            jsonValue = jQuery.parseJSON(jqXHR.responseText);
-            alert("Request failed: " + jsonValue.message);
-        });
-
-    });
-});
+//$(document).ready(function () {
+//    $("#create").click(function ()
+//    {
+//        var persons = {firstname: $("#firstname").val(), lastname: $("#lastname").val(), email: $("#email").val()};
+//
+//        $.ajax({
+//            url: "api/person/",
+//            type: "POST",
+//            dataType: "json",
+//            data: JSON.stringify(persons)
+//        }).done(function (person) {
+//            initAddEditField("", "", "");
+//            if (isAdding())
+//            {
+//                $("#table").append(person);
+//            }
+//            else {
+//                $("#" + data.id).replaceWith(makeRow(person));
+//            }
+//            setUpHandler();
+//            setIsAdding(true);
+//        }).fail(function (jqXHR, textStatus) {
+//            jsonValue = jQuery.parseJSON(jqXHR.responseText);
+//            alert("Request failed: " + jsonValue.message);
+//        });
+//
+//    });
+//});
 
 

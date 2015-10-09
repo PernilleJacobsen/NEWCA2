@@ -110,7 +110,6 @@ public class RestPerson
     {
         try
         {
-
             Person p = gson.fromJson(person, Person.class);
             Facade.createPerson(p);
             return gson.toJson(p);

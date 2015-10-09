@@ -54,10 +54,6 @@
     <tbody id="table2">
     </tbody>
 </table>
-    <input id="firstname" type="text" name="Firstname" value="" size="20" />
-    <input id="lastname" type="text" name="Lastname" value="" size="20" />
-    <input id="email" type="text" name="Email" value="" size="20" />
-    <input id="create" type="button" value="Create" name="create" />
 </body>
 
 </html>
