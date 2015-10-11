@@ -25,6 +25,9 @@
                     <li><a href="doku.jsp">Dokumentation af Person api</a></li>
                     <li><a href="test.jsp">Test</a></li>
                 </ul>
+        <h2>Projekter er ikke tilgængeligt via Openshift</h2>
+        <p>Vi har lagt war fil op på Openshift, men kan ikke få oprettet vores tabeller i databasen</p>
+        <p>Vi har fulgt både første vejledning og den nye hjælpevejledning fra Lars men uden held</p>
    
         <h2>Git repository</h2>
         <a href="https://github.com/PernilleJacobsen/NEWCA2.git">Git klik her</a>
