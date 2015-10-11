@@ -52,19 +52,26 @@ $(document).ready(function () {
             $("#table2").append("<td>" + person.address.street + " " + person.address.additionalinfo + " " + person.address.cityinfo.city + " " + person.address.cityinfo.zipcode + "</td>");
 
             var text = "<td> ";
-            for (var x = 0; x < person.phones.length; x++) {
+            for (var x = 0; x < person.phones.length; x++)
+            {
                 text += person.phones[x].number + " " + person.phones[x].description + " ";
                 text += " </td>";
                 $("#table2").append(text);
                 var text2 = "<td>";
-                for (var j = 0; j < person.hobbies.length; j++) {
+            }
+            for (var j = 0; j < person.hobbies.length; j++)
+            {
+                {
                     text2 += person.hobbies[j].name + " " + person.hobbies[j].description + " ";
                 }
                 text2 += " </td>";
                 $("#table2").append(text2);
                 $("#table2").append("</tr>");
+
             }
-        }).fail(function (jqXHR, textStatus) {
+
+        }).fail(function (jqXHR, textStatus)
+        {
             jsonValue = jQuery.parseJSON(jqXHR.responseText);
             alert("Request failed: " + jsonValue.message);
         });
