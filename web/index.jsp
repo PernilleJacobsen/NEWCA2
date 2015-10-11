@@ -22,9 +22,9 @@
                     <a class="navbar-brand" href="#">Bruge Person api</a>
                 </div>
                 <ul class="nav nav-tabs">
-                    <li><a href=".jsp">Generelt</a></li>
+                    <li><a href="Generelt.jsp">Generelt</a></li>
                     <li><a href="doku.jsp">Dokumentation af Person api</a></li>
-                    <li><a href=".jsp">Test</a></li>
+                    <li><a href="test.jsp">Test</a></li>
                 </ul>
         <script src ="main.js">
         </script>
